@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    meta(charset='UTF-8')
+    title User Profile
+    link(rel='stylesheet', href='css_home/style.css')
+  body
+    .ACon
+      .clickProfile
+       
+        .click(style = "background-image: url('../images/" + data.propic + "')")
+          .overlay
+            span
+              img
+        .PopUp(style='opacity: 0; margin-top: 0px; display: none') Open Profile
+        .clickPopUp(style='display: block')
+          h3
+            p(style='color:#3c98e7') #{data.first_name} #{data.last_name}
+          
+          a.post_tweet(href='/post_tweet')
+            h5.buttons Make A Tweets 
+          a.propic(type='file', href='/propic')
+            h5.buttons Edit Profile
+          a.timeline(href='/timeline')
+            h5.buttons  Timeline  
+          a.Following(href='/search_user')
+            h5.buttons  Search For User
+          a.Following(href='/following')
+            h5.buttons  Following
+          a.Followers(href='followers')
+            h5.buttons  Followers
+          a.Logout(href='/logout')
+            h5.buttons Logout
+
+
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js')
+    script(src='js_home/index.js')
