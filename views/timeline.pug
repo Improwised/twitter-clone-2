@@ -41,9 +41,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
       blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
       :focus { outline: 0; }
       del { text-decoration: line-through; }
-      table {border-spacing: 0; } 
-
-
+      table {border-spacing: 0; }
       /* IMPORTANT, I REMOVED border-collapse: collapse; FROM THIS LINE IN ORDER TO MAKE THE OUTER BORDER RADIUS WORK */
       /*------------------------------------------------------------------ */
       /*This is not important*/
@@ -176,10 +174,11 @@ html(xmlns='http://www.w3.org/1999/xhtml')
           th Time
         // Table Header
       each book in data
+        -const a = new Date(book.time)
         tr
           td= book.tweet
           td= book.user
-          td= book.time
+          td= a.getDate() + "/" + (a.getMonth()+1) + "/" + a.getFullYear() + " " + a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds()
         // Table Row
       tr.even
         td(colspan='3', align='center')
