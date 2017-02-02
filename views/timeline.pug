@@ -1,7 +1,8 @@
 html(xmlns='http://www.w3.org/1999/xhtml')
   head
     meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
-    title Simple Little Table in HTML/CSS3
+    title(rel='icon', type='image/jpg', href='d.jpg') Timeline
+
     style(type='text/css').
       /*
       This was made by João Sardinha
@@ -49,7 +50,7 @@ html(xmlns='http://www.w3.org/1999/xhtml')
       /*This is not important*/
       body{
       font-family:Arial, Helvetica, sans-serif;
-      background:#c1bdba;
+      background:#ddfaff;
       /*margin:0 auto;*/
       width:520px;
       }
@@ -176,10 +177,11 @@ html(xmlns='http://www.w3.org/1999/xhtml')
           th Time
         // Table Header
       each book in data
+        -const a = new Date(book.time)
         tr
           td= book.tweet
-          td= book.user
-          td= book.time
+          td= book.first_name +` `+ book.last_name
+          td= a.getDate() + "/" + (a.getMonth()+1) + "/" + a.getFullYear() + " " + a.getHours() + ":" + a.getMinutes() + ":" + a.getSeconds()
         // Table Row
       tr.even
         td(colspan='3', align='center')

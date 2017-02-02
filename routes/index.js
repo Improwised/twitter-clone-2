@@ -87,7 +87,6 @@ router.get(`/home`, (req, res, next) => {
         return;
       }
 
-      console.log(results.rows);
       res.render(`home`, {
         data: results.rows[0],
       });
@@ -186,23 +185,23 @@ router.post(`/insert`, (req, res, next) => {
 router.get(`/timeline`, (req, res, next) => {
   if (req.session.user_id) {
     const query = DB.builder()
-    .select()
-    .field(`user`)
-    .field(`tweet`)
-    .field(`time`)
-    .from(`tweets`)
-    .where(`id= ? OR id IN ? `, req.session.user_id, DB.builder().select()
-    .field(`followingid`).from(`followers`)
-    .where(`id= ?`, req.session.user_id))
-    .order('time',false)
-    .toParam();
+      .select()
+      .field('first_name')
+      .field('last_name')
+      .field('tweet')
+      .field('time')
+      .from('users', 'u')
+      .join( DB.builder().select().from('tweets'), 't', 'u.id = t.id')
+      .where("t.id IN ? OR t.id= ? ",(DB.builder().select().field("followingid").from("followers").where("id = ?",req.session.user_id)),req.session.user_id)
+      .order("time", false)
+      .toParam();
     DB.executeQuery(query, (error, results) => {
       if (error) {
         next(error);
         return;
       }
 
-      // sconsole.log(results.rows);
+      console.log(results.rows);
       res.render(`timeline`, {
         data: results.rows,
       });
@@ -375,11 +374,11 @@ router.get(`/propic`, (req, res, next) => {
         next(error);
         return;
       }
-    res.render(`propic`, {
-      data:results.rows,
+      res.render(`propic`, {
+        data: results.rows,
 
+      });
     });
-  });
   } else {
     res.redirect(`/failed`);
   }
@@ -431,13 +430,12 @@ router.post('/propic', upload.single(`file_upload`), (req, res, next) => {
           return;
         }
         res.redirect('/home');
-    });
+      });
     }
-    
   } else {
-        res.redirect(`/failed`);
-    }
-  });
+    res.redirect(`/failed`);
+  }
+});
 
 // ssession isn't required to be set
 router.get(`/logout`, (req, res) => {
