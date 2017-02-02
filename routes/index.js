@@ -201,7 +201,6 @@ router.get(`/timeline`, (req, res, next) => {
         return;
       }
 
-      console.log(results.rows);
       res.render(`timeline`, {
         data: results.rows,
       });
