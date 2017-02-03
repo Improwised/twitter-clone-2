@@ -1,5 +1,6 @@
 const http = require('http');
 const path = require('path');
+const session = require('express-session');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -12,8 +13,10 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
   require('dotenv').load();
 
   if (!process.env.PORT) {
-    console.error('Required environment variable not found. Are you sure you have a ".env" file in your application root?');
-    console.error('If not, you can just copy "example.env" and change the defaults as per your need.');
+    // console.error(`Required environment variable not
+    // //   found. Are you sure you have a ".env" file in your application root?`);
+    // console.error(`If not, you can just copy
+    // //   "example.env" and change the defaults as per your need.`);
     process.exit(1);
   }
 }
@@ -31,6 +34,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: '2c44-4D44-WppQ38S',
+  resave: true,
+  saveUninitialized: true,
+}));
 
 app.use('/', routes);
 
@@ -63,6 +71,7 @@ app.use((err, req, res) => {
     error: '',
   });
 });
+
 
 server.listen(process.env.PORT);
 console.log(`Server started on port ${process.env.PORT}`);

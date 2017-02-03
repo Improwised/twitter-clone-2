@@ -1,0 +1,16 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge,chrome=1')
+    title Post Tweet
+    link(rel='shortcut icon', href='images/15-512.png', type='image/x-icon')
+    link(rel='stylesheet', href='css_post_tweet/style.css')
+ 
+  body
+    form.contact(action='/insert_tweet', method='post')
+      fieldset.contact-inner
+        p.contact-input
+          textarea(name='tweet', placeholder=`What's On Your Mind... `, required='')
+        p.contact-submit
+          input(type='submit', name='submit', value='Tweet It')

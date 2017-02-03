@@ -13,4 +13,9 @@ lint:
 	jsonlint -q -c ${JSON_SRC}
 	eslint ${JS_SRC} ${ESLINT_ARGS}
 
+<<<<<<< HEAD
+test:
+	PGDB_DB=testingdb mocha
+=======
 test: lint
+>>>>>>> f52bfabe6bb09ac5ccf82c636dfcbdeb192d0c3c
