@@ -2,3 +2,10 @@ language: node_js
 node_js:
   - "6"
   - "4"
+
+services:
+  - postgresql
+
+before_script:
+  - psql -c 'create database testingdb;' -U postgres -w
+  - psql -f 'scripttest.sql'
