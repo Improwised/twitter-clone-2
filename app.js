@@ -6,6 +6,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const expressValidator = require('express-validator');
+
 
 // Load dotenv config
 if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
@@ -34,6 +36,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(expressValidator());
+
 app.use(session({
   secret: '2c44-4D44-WppQ38S',
   resave: true,

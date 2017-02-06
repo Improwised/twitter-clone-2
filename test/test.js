@@ -10,7 +10,7 @@ describe('GET /', () => {
     request(app)
       .get('/')
       .expect('Content-type', 'text/html; charset=utf-8')
-      .expect(500, done); // note that we're passing the done as parameter to the expect
+      .expect(200, done); // note that we're passing the done as parameter to the expect
   });
 });
 
@@ -20,7 +20,7 @@ describe('GET /login', () => {
     request(app)
       .get('/login')
       .expect('Content-type', 'text/html; charset=utf-8')
-      .expect(500, done); // note that we're passing the done as parameter to the expect
+      .expect(200, done); // note that we're passing the done as parameter to the expect
   });
 });
 
@@ -36,12 +36,12 @@ describe('POST /check', () => {
       .post('/check')
       .send(register)
       .expect('Content-type', 'text/html; charset=utf-8')
-      .expect(500)
+      .expect(200)
       .end((err, res) => {
         if (err) {
           done(err);
         } else {
-          res.status.should.be.equal(500);
+          res.status.should.be.equal(200);
           done();
         }
       });
@@ -113,13 +113,13 @@ describe('POST /insert', () => {
     request(app)
       .post('/insert')
       .send(register)
-      .expect('Content-type', 'text/html; charset=utf-8')
-      .expect(500)
+      .expect('Content-type', 'text/plain; charset=utf-8')
+      .expect(302)
       .end((err, res) => {
         if (err) {
           done(err);
         } else {
-          res.status.should.be.equal(500);
+          res.status.should.be.equal(302);
           done();
         }
       });

@@ -144,10 +144,21 @@ router.post(`/insert_tweet`, (req, res, next) => {
 
 // ssession isn't required to be set
 router.post(`/insert`, (req, res, next) => {
-  const firstName = req.body.first_name;
-  const lastName = req.body.last_name;
-  const email = req.body.email;
-  const password = req.body.password;
+  const firstName = req.sanitize('first_name').trim();
+  const lastName = req.sanitize('last_name').trim();
+  const email = req.sanitize('email').trim();
+  const password = req.sanitize('password').trim();
+
+  req.checkBody('first_name', 'first_name is required').notEmpty();
+  req.checkBody('last_name', 'last_name is required').notEmpty();
+
+  const errors = req.validationErrors();
+
+  if (errors) {
+    res.render('login', {
+      errors,
+    });
+  } else {
   const query = DB.builder()
   .select()
   .from(`users`)
@@ -178,6 +189,7 @@ router.post(`/insert`, (req, res, next) => {
       res.redirect(`/failed`);
     }
   });
+}
 });
 
 
